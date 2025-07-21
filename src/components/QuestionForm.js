@@ -7,20 +7,17 @@ function QuestionForm({ onAddQuestion }) {
     answer2: "",
     answer3: "",
     answer4: "",
-    correctIndex: 0,
+    correctIndex: "0",
   });
 
-  function handleChange(event) {
-    setFormData({
-      ...formData,
-      [event.target.name]: event.target.value,
-    });
+  function handleChange(e) {
+    setFormData((d) => ({ ...d, [e.target.name]: e.target.value }));
   }
 
-  function handleSubmit(event) {
-    event.preventDefault();
+  function handleSubmit(e) {
+    e.preventDefault();
 
-    const newQuestion = {
+    const newQ = {
       prompt: formData.prompt,
       answers: [
         formData.answer1,
@@ -34,7 +31,7 @@ function QuestionForm({ onAddQuestion }) {
     fetch("http://localhost:4000/questions", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(newQuestion),
+      body: JSON.stringify(newQ),
     })
       .then((r) => r.json())
       .then(onAddQuestion);
@@ -47,7 +44,6 @@ function QuestionForm({ onAddQuestion }) {
         <label>
           Prompt:
           <input
-            type="text"
             name="prompt"
             value={formData.prompt}
             onChange={handleChange}
@@ -56,7 +52,6 @@ function QuestionForm({ onAddQuestion }) {
         <label>
           Answer 1:
           <input
-            type="text"
             name="answer1"
             value={formData.answer1}
             onChange={handleChange}
@@ -65,7 +60,6 @@ function QuestionForm({ onAddQuestion }) {
         <label>
           Answer 2:
           <input
-            type="text"
             name="answer2"
             value={formData.answer2}
             onChange={handleChange}
@@ -74,7 +68,6 @@ function QuestionForm({ onAddQuestion }) {
         <label>
           Answer 3:
           <input
-            type="text"
             name="answer3"
             value={formData.answer3}
             onChange={handleChange}
@@ -83,7 +76,6 @@ function QuestionForm({ onAddQuestion }) {
         <label>
           Answer 4:
           <input
-            type="text"
             name="answer4"
             value={formData.answer4}
             onChange={handleChange}

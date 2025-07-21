@@ -14,19 +14,17 @@ function App() {
   }, []);
 
   function handleAddQuestion(newQuestion) {
-    setQuestions([...questions, newQuestion]);
+    setQuestions((q) => [...q, newQuestion]);
   }
 
-  function handleDeleteQuestion(deletedQuestionId) {
-    const updated = questions.filter((q) => q.id !== deletedQuestionId);
-    setQuestions(updated);
+  function handleDeleteQuestion(idDeleted) {
+    setQuestions((q) => q.filter((qObj) => qObj.id !== idDeleted));
   }
 
-  function handleUpdateQuestion(updatedQuestion) {
-    const updated = questions.map((q) =>
-      q.id === updatedQuestion.id ? updatedQuestion : q
+  function handleUpdateQuestion(updatedQ) {
+    setQuestions((q) =>
+      q.map((qObj) => (qObj.id === updatedQ.id ? updatedQ : qObj))
     );
-    setQuestions(updated);
   }
 
   return (
