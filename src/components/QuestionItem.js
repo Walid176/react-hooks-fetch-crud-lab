@@ -12,11 +12,11 @@ function QuestionItem({ question, onDeleteQuestion, onUpdateQuestion }) {
   function handleSelectChange(e) {
     const updatedIndex = parseInt(e.target.value);
 
-    // Optimistically update the state immediately
+   
     const updatedQuestion = { ...question, correctIndex: updatedIndex };
     onUpdateQuestion(updatedQuestion);
 
-    // Also send the request to the server
+    
     fetch(`http://localhost:4000/questions/${id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
@@ -24,7 +24,7 @@ function QuestionItem({ question, onDeleteQuestion, onUpdateQuestion }) {
     })
       .then((r) => r.json())
       .then((serverResponse) => {
-        // If server response differs, update again with server data
+       
         if (serverResponse.correctIndex !== updatedIndex) {
           onUpdateQuestion(serverResponse);
         }
